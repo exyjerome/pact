@@ -110,6 +110,8 @@ Pact.Component = class {
             str = re.textContent,
             curMatch;
 
+        // I'm not fond of the regex approach but haven't got a better way yet.
+
         while (curMatch = rxp.exec(str)) {
             re.textContent = re.textContent.replace(curMatch[0], _.get(this, curMatch[1], ''));
         }
@@ -133,12 +135,12 @@ Pact.Component = class {
     {
         this.el = this.el ? this.el : document.querySelector(target);
 
-        let re = this.getRender();
+        let tag = this.getTag();
 
         if (this.el.hasChildNodes()) {
-            console.log('replace child node with me');
+            this.el.replaceChild(tag, this.el.firstChild);
         } else {
-            this.el.appendChild(Pact.render(re));
+            this.el.appendChild(tag);
             this.componentDidMount();
         }
     }
@@ -168,9 +170,7 @@ Pact.Component = class {
             return 0;
         }
 
-        let re = this.getRender();
-
-        let newTag = Pact.render(re);
+        let newTag = this.getTag();
 
         if (this.el.hasChildNodes()) {
             if (Pact.diff(newTag, this.el.firstChild)) {
