@@ -89,17 +89,12 @@ class Pact {
 
 Pact.Component = class {
     constructor () {
-        this.ee = new EventEmitter;
         this.el = false;
         this.db = false;
 
         this.state = {};
 
-        this.ee.on('stateChange', this.onChange.bind(this));
-        this.ee.on('componentDidMount', this.componentDidMount.bind(this));
-        this.ee.on('componentDidCreate', this.componentDidCreate.bind(this));
-
-        this.ee.emit('componentDidCreate');
+        this.componentDidCreate();
     }
 
     render ()
@@ -144,7 +139,7 @@ Pact.Component = class {
             console.log('replace child node with me');
         } else {
             this.el.appendChild(Pact.render(re));
-            this.ee.emit('componentDidMount');
+            this.componentDidMount();
         }
     }
 
@@ -153,7 +148,7 @@ Pact.Component = class {
         if (!_.isEqual(this.state, _.assign({}, this.state, state))) {
             if (this.db) console.log('<!> state changed');
             this.state = _.assign({}, this.state, state);
-            this.ee.emit('stateChange');
+            this.onChange();
         }
     }
 
