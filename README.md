@@ -22,6 +22,10 @@ If state has been updated but is the same, we won't redraw or rerender the DOM, 
 I'm considering if `state: {key: 1}` changes to `state: {key: '1'}` adding a warning in console, letting them know
 it changed from an `Int` to a `String`
 
+--
+
+I need to update patch/diff, then when comparing a tag, run patch/diff on the children and patch changes, the way it does it now _works_ kinda but isn't very pretty
+
 ### Navbar example
 
 ```js
