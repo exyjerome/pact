@@ -10,8 +10,12 @@ Requires Lodash, ~~EventEmitter~~
 
 Lodash could be removed, but `_.get` and `_.set` are useful. While `_.assign(...)` could be replaced with `Object.assign(...)`
 
+It's worth mentioning this could be super horrible and may not implement best practices!
+
 Using a virtual DOM to render components
-Children currently work, but only static children, I need to re-work `Pact.diff` & `Pact.patch`
+Children currently work~~, but only static children, I need to re-work `Pact.diff` & `Pact.patch`~~
+
+Children currently work to a degree, for the most part if `state.foo` changes in a child, it will update the child's textContent
 
 If state has been updated but is the same, we won't redraw or rerender the DOM, only if an actual change has happened
 
